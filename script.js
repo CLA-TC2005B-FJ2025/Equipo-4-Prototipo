@@ -32,26 +32,17 @@ document.addEventListener("DOMContentLoaded", function() {
                 cell.style.backgroundPosition = `-${col * cellWidth}px -${row * cellHeight}px`;
                 cell.classList.add("locked", "grid-cell");
 
-                cell.addEventListener("mouseenter", function() {
-                    if (!this.classList.contains("permanently-unlocked")) {
-                        this.style.transform = "scale(1.5)";
-                        this.style.zIndex = "10";
-                        this.style.transition = "transform 0.3s ease";
-                    }
-                });
-
-                cell.addEventListener("mouseleave", function() {
-                    this.style.transform = "scale(1)";
-                    this.style.zIndex = "1";
-                });
-
                 cell.addEventListener("click", function() {
                     if (!isFullyUnlocked && !this.classList.contains("permanently-unlocked")) {
-                        this.classList.remove("locked");
-                        this.classList.add("unlocked", "permanently-unlocked");
+                        const respuesta = prompt("¿Sabes la respuesta?");
+                        if (respuesta && respuesta.trim().toLowerCase() === "no") {
+                            this.classList.remove("locked");
+                            this.classList.add("unlocked", "permanently-unlocked");
+                        } else {
+                            alert("Respuesta incorrecta. Intenta de nuevo.");
+                        }
                     }
                 });
-
                 grid.appendChild(cell);
             }
         }
